@@ -45,3 +45,12 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: "Error logging in", error });
   }
 };
+
+// 세션 정보 반환
+exports.session = async (req, res) => {
+  if (req.session.user) {
+    res.status(200).json({ user: req.session.user });
+  } else {
+    res.status(401).json({ message: "Not logged in" });
+  }
+};
