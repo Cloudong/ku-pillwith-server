@@ -3,6 +3,8 @@ const express = require("express");
 const session = require("express-session");
 const authRoutes = require("./routes/authRoutes");
 const scheRoutes = require("./routes/scheRoutes");
+const pillRoutes = require("./routes/pillRoutes");
+
 const app = express();
 
 // 미들웨어 설정
@@ -22,6 +24,8 @@ app.use(
 // 라우트 설정
 app.use("/auth", authRoutes);
 app.use("/schedule", scheRoutes);
+app.use('/pills', pillRoutes);
+
 
 // 서버 실행
 const PORT = process.env.PORT || 3000;
