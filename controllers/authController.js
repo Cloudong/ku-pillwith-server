@@ -3,14 +3,14 @@ const userModel = require("../models/userModel");
 
 // 회원가입 처리
 exports.register = async (req, res) => {
-  const { user_id, password, nickname } = req.body;
+  const { user_id, password, name } = req.body;
 
   // 비밀번호 해시
   const hashedPassword = await bcrypt.hash(password, 10);
 
   // 회원 생성
   try {
-    await userModel.createUser(user_id, hashedPassword, nickname);
+    await userModel.createUser(user_id, hashedPassword, name);
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
     res.status(500).json({ message: "Error registering user", error });

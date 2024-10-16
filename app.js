@@ -21,14 +21,25 @@ app.use(
   })
 );
 
+//client : CORS 설정
+const cors = require("cors");
+
+// CORS 설정
+app.use(
+  cors({
+    origin: "http://localhost:3000", // 클라이언트의 URL
+    credentials: true,
+  })
+);
+app.options("*", cors());
+
 // 라우트 설정
 app.use("/auth", authRoutes);
 app.use("/schedule", scheRoutes);
-app.use('/pills', pillRoutes);
-
+app.use("/pills", pillRoutes);
 
 // 서버 실행
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
