@@ -9,7 +9,7 @@ const pool = mysql.createPool({
 
 // 회원 정보를 데이터베이스에 저장
 exports.createUser = async (user_id, password, nickname) => {
-  const sql = `INSERT INTO user (user_id, password, nickname) VALUES (?, ?, ?)`;
+  const sql = `INSERT INTO user (user_id, password, name) VALUES (?, ?, ?)`;
   await pool.execute(sql, [user_id, password, nickname]);
 };
 
