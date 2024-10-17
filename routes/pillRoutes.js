@@ -26,4 +26,6 @@ const router = express.Router();
  */
 router.get("/fetch", pillController.fetch);
 
+router.get("/search", pillController.search);
+
 module.exports = router;

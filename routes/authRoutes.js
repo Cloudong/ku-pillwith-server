@@ -1,6 +1,5 @@
 const express = require("express");
 const authController = require("../controllers/authController");
-const swaggerCli = require("swagger-cli");
 const router = express.Router();
 
 // 회원가입 라우트

@@ -208,6 +208,23 @@ class PillService {
         return savedPillList; // 성공적으로 저장된 Pill 객체 반환
     }
 
+    // 의약품 검색 서비스 로직
+    /*
+    async search(query) {
+        try {
+            const pills = await Pill.findAll({
+                where: {
+                    item_name: {
+                        [Op.like]: `%${query.trim()}%` // 검색어의 앞뒤 공백 제거 후 부분 일치 검색
+                    }
+                }
+            });
+            return pills;
+        } catch (error) {
+            throw new Error("서버 오류"); // 오류 발생 시 예외 던지기
+        }
+    }
+        */
 
 }
 
