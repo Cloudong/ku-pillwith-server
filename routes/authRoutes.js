@@ -11,23 +11,26 @@ const router = express.Router();
  *   post:
  *     summary: 회원가입
  *     description: 사용자를 등록합니다.
- *     parameters:
- *       - in: body
- *         name: user
- *         description: 사용자 정보를 입력합니다.
- *         schema:
- *           type: object
- *           required:
- *             - user_id
- *             - password
- *             - name
- *           properties:
- *             user_id:
- *               type: string
- *             password:
- *               type: string
- *             name:
- *               type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - user_id
+ *               - password
+ *               - name
+ *             properties:
+ *               user_id:
+ *                 type: string
+ *                 example: "testuser123"
+ *               password:
+ *                 type: string
+ *                 example: "securePassword!123"
+ *               name:
+ *                 type: string
+ *                 example: "홍길동"
  *     responses:
  *       201:
  *         description: User registered successfully
@@ -36,48 +39,48 @@ const router = express.Router();
  */
 router.post("/register", authController.register);
 
-// 로그인 라우트
 /**
  * @swagger
  * /auth/login:
  *   post:
  *     summary: 사용자 로그인
  *     description: 사용자 ID와 비밀번호로 로그인합니다.
- *     parameters:
- *       - in: body
- *         name: user
- *         description: 로그인에 필요한 사용자 정보를 입력합니다.
- *         required: true
- *         schema:
- *           type: object
- *           required:
- *             - user_id
- *             - password
- *           properties:
- *             user_id:
- *               type: string
- *               example: "testuser123"
- *             password:
- *               type: string
- *               example: "securePassword!123"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - user_id
+ *               - password
+ *             properties:
+ *               user_id:
+ *                 type: string
+ *                 example: "testuser123"
+ *               password:
+ *                 type: string
+ *                 example: "securePassword!123"
  *     responses:
  *       200:
  *         description: 로그인 성공
- *         schema:
- *           type: object
- *           properties:
- *             message:
- *               type: string
- *               example: "Login successful"
- *             user:
+ *         content:
+ *           application/json:
+ *             schema:
  *               type: object
  *               properties:
- *                 id:
- *                   type: integer
- *                   example: 1
- *                 user_id:
+ *                 message:
  *                   type: string
- *                   example: "testuser123"
+ *                   example: "Login successful"
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     user_id:
+ *                       type: string
+ *                       example: "testuser123"
  *       401:
  *         description: 잘못된 자격 증명
  *       404:
