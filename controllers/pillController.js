@@ -1,4 +1,5 @@
 const PillService = require('../services/PillService');
+const PillSearchDto = require('../dtos/response/PillSearchDto');
 const Pill = require('../models/Pill');
 const { Op } = require('sequelize'); // Sequelize의 Op 가져오기
 
@@ -37,7 +38,15 @@ exports.search = async (req, res) => {
             }
         });
 
-        res.status(200).json(pills);
+        // 필요한 정보를 담은 PillSearchDTO 리스트 생성
+        const pillSearchDtos = pills.map(pill => new PillSearchDto(
+            pill.id,
+            pill.item_name,
+            pill.product_type,
+            pill.big_prdt_img_url 
+        ));
+
+        res.status(200).json(pillSearchDtos); // DTO 리스트 반환
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "서버 오류", error });
