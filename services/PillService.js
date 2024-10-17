@@ -2,9 +2,9 @@ const sequelize = require('../db'); // db.js에서 Sequelize 인스턴스 가져
 const axios = require('axios');
 
 const xml2js = require('xml2js');
-const PillDTO = require('../dtos/PillDTO');
-const PillInfoDTO = require('../dtos/PillInfoDTO');
-const PillDocDTO = require('../dtos/PillDocDTO');
+const PillDTO = require('../dtos/PillDto');
+const PillInfoDTO = require('../dtos/PillInfoDto');
+const PillDocDTO = require('../dtos/PillDocDto');
 const Pill = require('../models/Pill');
 
 class PillService {
@@ -207,7 +207,6 @@ class PillService {
         //console.log(savedPillList.length);
         return savedPillList; // 성공적으로 저장된 Pill 객체 반환
     }
-
 
 }
 
