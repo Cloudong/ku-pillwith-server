@@ -28,4 +28,6 @@ router.get("/fetch", pillController.fetch);
 
 router.get("/search", pillController.search);
 
+router.get("/:id", pillController.getPillById);
+
 module.exports = router;

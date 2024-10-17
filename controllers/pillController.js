@@ -1,5 +1,6 @@
 const PillService = require('../services/PillService');
 const PillSearchDto = require('../dtos/response/PillSearchDto');
+const PillDto = require('../dtos/PillDto');
 const Pill = require('../models/Pill');
 const { Op } = require('sequelize'); // Sequelize의 Op 가져오기
 
@@ -25,7 +26,7 @@ exports.search = async (req, res) => {
     const { query } = req.query;
 
     if (!query) {
-        return res.status(400).json({ message: "Internal Server Error" });
+        return res.status(400).json({ message: "유효하지 않은 검색어입니다." });
     }
 
     try {
@@ -43,12 +44,47 @@ exports.search = async (req, res) => {
             pill.id,
             pill.item_name,
             pill.product_type,
-            pill.big_prdt_img_url 
+            pill.big_prdt_img_url
         ));
 
         res.status(200).json(pillSearchDtos); // DTO 리스트 반환
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "서버 오류", error });
+        res.status(500).json({ message: "Internal Server Error", error });
+    }
+};
+
+// 의약품 상세 페이지 API
+exports.getPillById = async (req, res) => {
+    const { id } = req.params; // URL 파라미터에서 id 추출
+
+    try {
+        // ID에 해당하는 의약품 조회
+        const pill = await Pill.findOne({
+            where: {
+                id: id // ID로 검색
+            }
+        });
+
+        // 의약품이 존재하지 않는 경우
+        if (!pill) {
+            return res.status(404).json({ message: "의약품을 찾을 수 없습니다." });
+        }
+
+        // PillDTO 생성
+        const pillDto = new PillDto(
+            pill.item_name,
+            pill.item_ingr_name,
+            pill.product_type,
+            pill.ee_doc_data,
+            pill.ud_doc_data,
+            pill.nb_doc_data,
+            pill.big_prdt_img_url
+        );
+
+        res.status(200).json(pillDto); // PillDTO 반환
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal Server Error", error });
     }
 };
