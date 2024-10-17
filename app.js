@@ -4,6 +4,11 @@ const session = require("express-session");
 const authRoutes = require("./routes/authRoutes");
 const scheRoutes = require("./routes/scheRoutes");
 const pillRoutes = require("./routes/pillRoutes");
+//swagger
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+const swaggerOption = require('./swagger'); // swagger.js에서 export한 options import
+
 
 const app = express();
 
@@ -32,6 +37,10 @@ app.use(
   })
 );
 app.options("*", cors());
+
+// Swagger 설정
+const specs = swaggerJSDoc(swaggerOption);
+app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(specs));
 
 // 라우트 설정
 app.use("/auth", authRoutes);
