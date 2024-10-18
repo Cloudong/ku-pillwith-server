@@ -44,11 +44,11 @@ const router = express.Router();
  *                         type: string
  *                         example: "[03310]혈액대용제"
  *       401:
- *         description: 인증되지 않음 (Unauthorized)
+ *         description: "Unauthorized"
  *       404:
- *         description: 일정이 없음 (No schedules found)
+ *         description: "No schedules found"
  *       500:
- *         description: 일정 조회 중 오류 발생 (Error fetching schedules)
+ *         description: "Error fetching schedules"
  */
 router.get("/schedules", scheController.getUserSchedules);
 
@@ -103,9 +103,9 @@ router.get("/schedules", scheController.getUserSchedules);
  *                   type: string
  *                   example: "Schedule added successfully"
  *       400:
- *         description: 필수 필드 누락 (Missing required fields)
+ *         description: "Missing required fields"
  *       500:
- *         description: 일정 등록 실패 (Failed to add schedule)
+ *         description: "Failed to add schedule"
  */
 router.post("/register", scheController.createSchedule);
 
@@ -136,11 +136,11 @@ router.post("/register", scheController.createSchedule);
  *                   type: string
  *                   example: "Schedule deleted successfully"
  *       400:
- *         description: 일정 ID 누락 (Missing schedule ID)
+ *         description: "Missing schedule ID"
  *       404:
- *         description: 해당 일정이 없음 (Schedule not found")
+ *         description: "Schedule not found"
  *       500:
- *         description: 일정 삭제 실패 (Failed to delete schedule)
+ *         description: "Failed to delete schedule"
  */
 router.delete("/:id", scheController.deleteSchedule);
 
