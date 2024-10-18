@@ -34,7 +34,7 @@ exports.login = async (req, res) => {
     }
 
     // 로그인 성공 시 세션에 사용자 정보 저장
-    req.session.user = { id: user.id, user_id: user.user_id };
+    req.session.user = { id: user.id, name: user.name, user_id: user.user_id };
 
     res.status(200).json({ message: "Login successful", user: user });
 
