@@ -25,29 +25,30 @@ const router = express.Router();
  *                       id:
  *                         type: integer
  *                         example: 1
+ *                       type:
+ *                         type: string
+ *                         example: "아침"
  *                       user_id:
+ *                         type: integer
+ *                         example: 1
+ *                       pill_id:
+ *                         type: integer
+ *                         example: 1
+ *                       pill_imgurl:
  *                         type: string
- *                         example: "testuser123"
- *                       medication:
+ *                         example: "http://example.com/pill-image.jpg"
+ *                       pill_dosage:
  *                         type: string
- *                         example: "아스피린"
- *                       dosage:
+ *                         example: "1정"
+ *                       pill_type:
  *                         type: string
- *                         example: "1일 3회"
- *                       start_date:
- *                         type: string
- *                         format: date
- *                         example: "2024-01-01"
- *                       end_date:
- *                         type: string
- *                         format: date
- *                         example: "2024-12-31"
+ *                         example: "[03310]혈액대용제"
  *       401:
- *         description: 인증되지 않음 (Unauthorized)
+ *         description: "Unauthorized"
  *       404:
- *         description: 일정이 없음 (No schedules found)
+ *         description: "No schedules found"
  *       500:
- *         description: 일정 조회 중 오류 발생
+ *         description: "Error fetching schedules"
  */
 router.get("/schedules", scheController.getUserSchedules);
 
@@ -73,23 +74,23 @@ router.get("/schedules", scheController.getUserSchedules);
  *               - pill_type
  *             properties:
  *               user_id:
- *                 type: string
- *                 example: "testuser123"
- *               type:
- *                 type: string
- *                 example: "복용"
- *               pill_id:
  *                 type: integer
  *                 example: 1
+ *               type:
+ *                 type: string
+ *                 example: "아침"
+ *               pill_id:
+ *                  type: integer
+ *                  example: 1
  *               pill_imgurl:
  *                 type: string
  *                 example: "http://example.com/pill-image.jpg"
  *               pill_dosage:
  *                 type: string
- *                 example: "1일 3회"
+ *                 example: "1정"
  *               pill_type:
  *                 type: string
- *                 example: "정제"
+ *                 example: "[03310]혈액대용제"
  *     responses:
  *       201:
  *         description: 일정 등록 성공
@@ -102,9 +103,9 @@ router.get("/schedules", scheController.getUserSchedules);
  *                   type: string
  *                   example: "Schedule added successfully"
  *       400:
- *         description: 필수 필드 누락
+ *         description: "Missing required fields"
  *       500:
- *         description: 일정 등록 실패
+ *         description: "Failed to add schedule"
  */
 router.post("/register", scheController.createSchedule);
 
@@ -121,8 +122,8 @@ router.post("/register", scheController.createSchedule);
  *         required: true
  *         description: 삭제할 일정의 ID
  *         schema:
- *           type: string
- *           example: "1"
+ *           type: integer
+ *           example: 1
  *     responses:
  *       200:
  *         description: 일정 삭제 성공
@@ -135,11 +136,11 @@ router.post("/register", scheController.createSchedule);
  *                   type: string
  *                   example: "Schedule deleted successfully"
  *       400:
- *         description: 일정 ID 누락
+ *         description: "Missing schedule ID"
  *       404:
- *         description: 해당 일정이 없음
+ *         description: "Schedule not found"
  *       500:
- *         description: 일정 삭제 실패
+ *         description: "Failed to delete schedule"
  */
 router.delete("/:id", scheController.deleteSchedule);
 

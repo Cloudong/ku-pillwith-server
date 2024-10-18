@@ -22,7 +22,15 @@ const router = express.Router();
  *               type: integer
  *               example: 10
  *       500:
- *         description: 의약품 정보 저장 중 오류 발생
+ *         description: 서버 오류
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: "Internal Server Error"
  */
 router.get("/fetch", pillController.fetch);
 
@@ -70,7 +78,7 @@ router.get("/fetch", pillController.fetch);
  *               properties:
  *                 message:
  *                   type: string
- *                   description: 오류 메시지
+ *                   description: "유효하지 않은 검색어입니다."
  *       500:
  *         description: 서버 오류
  *         content:
@@ -80,7 +88,7 @@ router.get("/fetch", pillController.fetch);
  *               properties:
  *                 message:
  *                   type: string
- *                   description: 오류 메시지
+ *                   description: "Internal Server Error"
  */
 router.get("/search", pillController.search);
 
@@ -135,7 +143,7 @@ router.get("/search", pillController.search);
  *               properties:
  *                 message:
  *                   type: string
- *                   description: 오류 메시지
+ *                   description: "의약품을 찾을 수 없습니다."
  *       500:
  *         description: 서버 오류
  *         content:
@@ -145,7 +153,7 @@ router.get("/search", pillController.search);
  *               properties:
  *                 message:
  *                   type: string
- *                   description: 오류 메시지
+ *                   description: "Internal Server Error"
  */
 router.get("/:id", pillController.getPillById);
 
