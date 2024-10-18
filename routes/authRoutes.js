@@ -81,11 +81,11 @@ router.post("/register", authController.register);
  *                       type: string
  *                       example: "testuser123"
  *       401:
- *         description: 잘못된 자격 증명
+ *         description: Invalid credentials
  *       404:
- *         description: 사용자 찾을 수 없음
+ *         description: User not found
  *       500:
- *         description: 로그인 처리 중 오류 발생
+ *         description: Error logging in
  */
 router.post("/login", authController.login);
 
@@ -112,7 +112,7 @@ router.post("/login", authController.login);
  *                   type: string
  *                   example: "testuser123"
  *       401:
- *         description: 로그인하지 않음
+ *         description: Not logged in
  */
 router.get("/session", authController.session);
 
