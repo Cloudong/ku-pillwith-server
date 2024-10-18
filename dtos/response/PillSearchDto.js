@@ -1,4 +1,4 @@
-class PilSearchDto {
+class PillSearchDto {
     constructor(id, item_name, product_type, big_prdt_img_url) {
         this.id = id;
         this.item_name = item_name;
@@ -7,4 +7,4 @@ class PilSearchDto {
     }
 }
 
-module.exports = PilSearchDto;
+module.exports = PillSearchDto;

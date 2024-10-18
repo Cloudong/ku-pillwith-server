@@ -3,7 +3,7 @@ const sequelize = require('../db'); // db.js에서 Sequelize 인스턴스 가져
 
 const Pill = sequelize.define('Pill', {
     id: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
