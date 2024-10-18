@@ -26,15 +26,15 @@ exports.getUserSchedules = async (req, res) => {
 exports.createSchedule = async (req, res) => {
   // req.session.user; // 이거 없으면 쿠키가 안담아짐;; 왜이러냐
 
-  const { user_id, type, pill_id, pill_imgurl, pill_dosage, pill_type } = req.body;
+  const { user_id, type, pill_id, pill_item_name, pill_imgurl, pill_dosage, pill_type } = req.body;
 
-  if (!user_id || !type || !pill_id || !pill_dosage || !pill_type) {
+  if (!user_id || !type || !pill_id || !pill_item_name || !pill_dosage || !pill_type) {
     return res.status(400).json({ message: "Missing required fields" });
   }
 
   try {
     // 일정 등록 (DB에 추가)
-    await scheduleModel.createSchedule(user_id, type, pill_id, pill_imgurl, pill_dosage, pill_type);
+    await scheduleModel.createSchedule(user_id, type, pill_id, pill_item_name, pill_imgurl, pill_dosage, pill_type);
 
     res.status(201).json({ message: "Schedule added successfully" });
   } catch (error) {

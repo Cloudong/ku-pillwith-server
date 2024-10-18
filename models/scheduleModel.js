@@ -15,9 +15,9 @@ exports.findSchedulesById = async (user_id) => {
 };
 
 // 일정 등록
-exports.createSchedule = async (user_id, type, pill_id, pill_imgurl, pill_dosage, pill_type) => {
-  const sql = `INSERT INTO schedule (user_id, type, pill_id, pill_imgurl, pill_dosage, pill_type) VALUES (?, ?, ?, ?, ?, ?)`;
-  await pool.execute(sql, [user_id, type, pill_id, pill_imgurl, pill_dosage, pill_type]);
+exports.createSchedule = async (user_id, type, pill_id, pill_item_name, pill_imgurl, pill_dosage, pill_type) => {
+  const sql = `INSERT INTO schedule (user_id, type, pill_id, pill_item_name, pill_imgurl, pill_dosage, pill_type) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+  await pool.execute(sql, [user_id, type, pill_id, pill_item_name, pill_imgurl, pill_dosage, pill_type]);
 };
 
 // 일정 삭제
