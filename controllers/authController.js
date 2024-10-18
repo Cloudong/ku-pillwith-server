@@ -46,6 +46,64 @@ exports.login = async (req, res) => {
   }
 };
 
+// 로그아웃 처리
+exports.logout = async (req, res) => {
+  if (req.session.user) {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ message: "Error logging out", error: err });
+      }
+      res.status(200).json({ message: "Logout successful" });
+    });
+  } else {
+    res.status(401).json({ message: "Not logged in" });
+  }
+};
+
+// 닉네임 수정 기능
+// exports.updateName = async (req, res) => {
+//   const { user_id, new_name } = req.body;
+
+//   // 1. 입력값 유효성 검사
+//   if (!user_id || !new_name) {
+//     return res.status(400).json({ message: "user_id or new_name is missing" });
+//   }
+
+//   try {
+//     // 2. 사용자가 존재하는지 확인
+//     const user = await userModel.findUserById(user_id);
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     // 3. 닉네임 업데이트
+//     await userModel.updateUserName(user_id, new_name);
+//     res.status(200).json({ message: "Name updated successfully" });
+//   } catch (error) {
+//     res.status(500).json({ message: "Error updating nickname", error });
+//   }
+// };
+
+exports.updateName = async (req, res) => {
+  const { new_name } = req.body;
+
+  if (!req.session.user) {
+    return res.status(401).json({ message: "Not logged in" });
+  }
+
+  try {
+    const userId = req.session.user.user_id;
+    await userModel.updateUserName(userId, new_name);
+
+    // 세션에 저장된 닉네임도 업데이트
+    req.session.user.name = new_name;
+
+    res.status(200).json({ message: "Name updated successfully", new_name });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating nickname", error });
+  }
+};
+
 // 세션 정보 반환
 exports.session = async (req, res) => {
   if (req.session.user) {

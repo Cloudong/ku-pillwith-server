@@ -116,4 +116,8 @@ router.post("/login", authController.login);
  */
 router.get("/session", authController.session);
 
+router.post("/update-name", authController.updateName);
+
+router.delete("/logout", authController.logout);
+
 module.exports = router;
