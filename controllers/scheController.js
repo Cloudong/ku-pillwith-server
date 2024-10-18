@@ -28,7 +28,7 @@ exports.createSchedule = async (req, res) => {
 
   const { user_id, type, pill_id, pill_imgurl, pill_dosage, pill_type } = req.body;
 
-  if (!user_id || !type || !pill_id || !pill_imgurl || !pill_dosage || !pill_type) {
+  if (!user_id || !type || !pill_id || !pill_dosage || !pill_type) {
     return res.status(400).json({ message: "Missing required fields" });
   }
 
