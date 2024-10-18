@@ -1,22 +1,32 @@
 require("dotenv").config();
 const express = require("express");
+
+//사용자 로그인 정보 저장
 const session = require("express-session");
+const sequelize = require("./db");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
+
 const authRoutes = require("./routes/authRoutes");
 const scheRoutes = require("./routes/scheRoutes");
 const pillRoutes = require("./routes/pillRoutes");
 //swagger
-const swaggerJSDoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
-const swaggerOption = require('./swagger'); // swagger.js에서 export한 options import
-
+const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+const swaggerOption = require("./swagger"); // swagger.js에서 export한 options import
 
 const app = express();
+
+//session store
+const store = new SequelizeStore({
+  db: sequelize,
+});
 
 // 미들웨어 설정
 app.use(express.json());
 app.use(
   session({
     secret: "@chars0624",
+    store: store,
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -25,6 +35,8 @@ app.use(
     },
   })
 );
+
+store.sync();
 
 //client : CORS 설정
 const cors = require("cors");
@@ -40,7 +52,7 @@ app.options("*", cors());
 
 // Swagger 설정
 const specs = swaggerJSDoc(swaggerOption);
-app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(specs));
+app.use("/swagger-ui", swaggerUi.serve, swaggerUi.setup(specs));
 
 // 라우트 설정
 app.use("/auth", authRoutes);
