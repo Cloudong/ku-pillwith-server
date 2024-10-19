@@ -13,6 +13,9 @@ const pillRoutes = require("./routes/pillRoutes");
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const swaggerOption = require("./swagger"); // swagger.js에서 export한 options import
+// 스케쥴러 설정
+const cron = require('node-cron');
+const axios = require('axios');
 
 const app = express();
 
@@ -58,6 +61,19 @@ app.use("/swagger-ui", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/auth", authRoutes);
 app.use("/schedule", scheRoutes);
 app.use("/pills", pillRoutes);
+
+// 스케쥴러 설정
+// 매일 오전 00시에 API 호출
+cron.schedule('0 0 * * *', async () => {
+    console.log('Running the fetch process...');
+    try {
+        const response = await axios.get('http://localhost:3001/pills/fetch'); // API 호출
+        console.log('Fetch response:', response.data);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+});
+
 
 // 서버 실행
 const PORT = process.env.PORT || 3001;
