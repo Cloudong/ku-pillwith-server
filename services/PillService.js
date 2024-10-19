@@ -22,14 +22,12 @@ class PillService {
                 const infoResponse = await axios.get(infoUrlWithParams);
 
                 const pillInfoList = await this.pillInfoApiParseXml(infoResponse.data);
-                //console.log((await pillInfoList).length);
 
                 // doc 공공데이터 API 요청
                 const docUrlWithParams = `${docUrl}?serviceKey=${serviceKey}&pageNo=${pageNo}&numOfRows=${numOfRows}`;
                 const docResponse = await axios.get(docUrlWithParams);
 
                 const pillDocList = await this.pillDocApiParseXml(docResponse.data);
-                //console.log((await pillDocList).length);
 
                 //PillDto 만들고 DB에 저장
                 const savedPills = await this.buildPillDtoAndSave(pillInfoList, pillDocList);
@@ -76,7 +74,7 @@ class PillService {
     
                     const pillInfoDto = new PillInfoDTO(itemName, itemIngrName, productType, bigPrdtImgUrl);
                     pillInfoDtoList.push(pillInfoDto);
-                    //console.log(pillInfoDto.item_name);
+                    
                 });
             }
         } catch (error) {
@@ -108,7 +106,7 @@ class PillService {
     
                     const pillDocDto = new PillDocDTO(eeDocData, udDocData, nbDocData);
                     pillDocDtoList.push(pillDocDto);
-                    //console.log(pillDocDto.ee_doc_data);
+                    
                 });
             }
             
@@ -152,8 +150,6 @@ class PillService {
         // PillDTO 생성 및 저장 로직
         const pillDtoList = [];
 
-        // 두 리스트가 동일 순서로 약 정보를 반환한다고 가정
-        //console.log('pillInfoDtoList.length: ', pillInfoDtoList.length);
         for (let i = 0; i < pillInfoDtoList.length; i++) {
             const pillInfoDto = pillInfoDtoList[i];
             const pillDocDto = pillDocDtoList[i];
@@ -167,7 +163,6 @@ class PillService {
                 pillDocDto.nb_doc_data,
                 pillInfoDto.big_prdt_img_url,
             );
-            //console.log(pillDto.item_name, pillDto.ee_doc_data);
             pillDtoList.push(pillDto);
         }
 
@@ -196,7 +191,6 @@ class PillService {
                     big_prdt_img_url: pillDto.big_prdt_img_url,
                 });
 
-                //console.log('Pill saved:', pill.toJSON());
                 savedPillList.push(pill); // 저장된 Pill 객체 추가
             }
 
@@ -204,7 +198,6 @@ class PillService {
             console.error('Error saving pill data:', error);
         }
 
-        //console.log(savedPillList.length);
         return savedPillList; // 성공적으로 저장된 Pill 객체 반환
     }
 
