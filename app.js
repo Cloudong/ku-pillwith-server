@@ -1,18 +1,23 @@
 require("dotenv").config();
 const express = require("express");
 
-//사용자 로그인 정보 저장
+// 사용자 로그인 정보 저장
 const session = require("express-session");
 const sequelize = require("./db");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
+// routes
 const authRoutes = require("./routes/authRoutes");
 const scheRoutes = require("./routes/scheRoutes");
 const pillRoutes = require("./routes/pillRoutes");
-//swagger
+
+// swagger
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
-const swaggerOption = require("./swagger"); // swagger.js에서 export한 options import
+const swaggerOption = require("./swagger");
+
+// scheduler
+const { startCronJob } = require('./scheduler');
 
 const app = express();
 
@@ -58,6 +63,9 @@ app.use("/swagger-ui", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/auth", authRoutes);
 app.use("/schedule", scheRoutes);
 app.use("/pills", pillRoutes);
+
+// 스케줄러 시작
+startCronJob();
 
 // 서버 실행
 const PORT = process.env.PORT || 3001;
