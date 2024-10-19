@@ -10,7 +10,7 @@ const Pill = require('../models/Pill');
 class PillService {
     async getPills(serviceKey, infoUrl, docUrl) {
         try {
-            let pageNo = 461;
+            let pageNo = 1;
             const numOfRows = 100;
             let hasMorePills = true;
             const pills = [];
@@ -173,34 +173,50 @@ class PillService {
         if (!pillDtoList || pillDtoList.length === 0) {
             return []; // 빈 리스트 반환
         }
-
+    
         const savedPillList = [];
-
+    
         try {
             await sequelize.sync();
-
+    
             for (const pillDto of pillDtoList) {
-
-                const pill = await Pill.create({
-                    item_name: pillDto.item_name,
-                    item_ingr_name: pillDto.item_ingr_name,
-                    product_type: pillDto.product_type,
-                    ee_doc_data: pillDto.ee_doc_data,
-                    ud_doc_data: pillDto.ud_doc_data,
-                    nb_doc_data: pillDto.nb_doc_data,
-                    big_prdt_img_url: pillDto.big_prdt_img_url,
-                });
-
-                savedPillList.push(pill); // 저장된 Pill 객체 추가
+                const existingPill = await Pill.findOne({ where: { item_name: pillDto.item_name } });
+    
+                if (existingPill) {
+                    // 기존 레코드가 있다면 필요한 필드만 업데이트
+                    await existingPill.update({
+                        item_ingr_name: pillDto.item_ingr_name,
+                        product_type: pillDto.product_type,
+                        ee_doc_data: pillDto.ee_doc_data,
+                        ud_doc_data: pillDto.ud_doc_data,
+                        nb_doc_data: pillDto.nb_doc_data,
+                        big_prdt_img_url: pillDto.big_prdt_img_url,
+                    });
+                    console.log("pill update\n");
+                    savedPillList.push(existingPill);
+                } else {
+                    // 존재하지 않는 경우 새로 생성
+                    const newPill = await Pill.create({
+                        item_name: pillDto.item_name,
+                        item_ingr_name: pillDto.item_ingr_name,
+                        product_type: pillDto.product_type,
+                        ee_doc_data: pillDto.ee_doc_data,
+                        ud_doc_data: pillDto.ud_doc_data,
+                        nb_doc_data: pillDto.nb_doc_data,
+                        big_prdt_img_url: pillDto.big_prdt_img_url,
+                    });
+                    console.log("new pill save\n");
+                    savedPillList.push(newPill);
+                }
             }
-
+    
         } catch (error) {
             console.error('Error saving pill data:', error);
         }
-
+    
         return savedPillList; // 성공적으로 저장된 Pill 객체 반환
     }
-
 }
+    
 
 module.exports = new PillService();

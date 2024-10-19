@@ -10,6 +10,7 @@ const Pill = sequelize.define('Pill', {
     item_name: {
         type: DataTypes.TEXT,
         allowNull: false, // NOT NULL
+        unique: true,
     },
     item_ingr_name: {
         type: DataTypes.TEXT,
