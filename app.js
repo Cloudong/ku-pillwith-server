@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const path = require("path");
 
 // 사용자 로그인 정보 저장
 const session = require("express-session");
@@ -17,7 +18,7 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerOption = require("./swagger");
 
 // scheduler
-const { startCronJob } = require('./scheduler');
+const { startCronJob } = require("./scheduler");
 
 const app = express();
 
@@ -27,7 +28,12 @@ const store = new SequelizeStore({
 });
 
 // 미들웨어 설정
-app.use(express.json());
+app.use(express.static(path.join(__dirname, "build")));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "build/index.html"));
+});
+
 app.use(
   session({
     secret: "@chars0624",
@@ -69,6 +75,6 @@ startCronJob();
 
 // 서버 실행
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on port ${PORT}`);
 });
