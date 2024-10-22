@@ -21,6 +21,11 @@ const swaggerOption = require("./swagger");
 // scheduler
 const { startCronJob } = require("./scheduler");
 
+// body-parser 설정
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 const app = express();
 
 //session store
