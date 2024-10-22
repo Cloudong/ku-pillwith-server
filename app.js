@@ -1,6 +1,5 @@
 require("dotenv").config();
 const express = require("express");
-const { startCronJob, manualFetch, backupDataAWS } = require("./aws");
 const path = require("path");
 
 // 사용자 로그인 정보 저장
@@ -19,7 +18,7 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerOption = require("./swagger");
 
 // scheduler
-const { startCronJob, manualFetch } = require("./scheduler");
+const { startCronJob, manualFetch, backupDataAWS } = require("./scheduler");
 
 const app = express();
 
