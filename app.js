@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const { backupData } = require("./aws");
+const { startCronJob, manualFetch, backupDataAWS } = require("./aws");
 const path = require("path");
 
 // 사용자 로그인 정보 저장
@@ -81,7 +81,7 @@ startCronJob();
 manualFetch();
 
 //s3 백업
-backupData();
+backupDataAWS();
 
 // 서버 실행
 const PORT = process.env.PORT || 3001;

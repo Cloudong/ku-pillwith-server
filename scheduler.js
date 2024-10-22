@@ -1,5 +1,6 @@
 const cron = require("node-cron");
 const axios = require("axios");
+const { backupData: backupDatabase } = require("./aws"); // 백업 함수 가져오기
 
 // 스케쥴러 설정
 // 매일 오전 00시에 API 호출
@@ -15,11 +16,12 @@ const startCronJob = () => {
   });
 };
 
-const backupData = () => {
+// 매일 오전 00시에 백업 수행
+const backupDataAWS = () => {
   cron.schedule("0 0 * * *", async () => {
     console.log("Running the backup process...");
     try {
-      await backupData();
+      await backupDatabase();
       console.log("Scheduled backup completed successfully.");
     } catch (error) {
       console.error("Error during scheduled backup:", error);
@@ -27,7 +29,7 @@ const backupData = () => {
   });
 };
 
-// 함수 추가: 수동으로 fetch 작업을 수행하는 함수
+// 수동으로 fetch 작업을 수행하는 함수
 const manualFetch = async () => {
   console.log("Running the manual fetch process...");
   try {
@@ -38,4 +40,4 @@ const manualFetch = async () => {
   }
 };
 
-module.exports = { startCronJob, manualFetch };
+module.exports = { startCronJob, manualFetch, backupDataAWS };
