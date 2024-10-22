@@ -78,6 +78,7 @@ app.use("/pills", pillRoutes);
 
 // 스케줄러 시작
 startCronJob();
+manualFetch();
 
 //s3 백업
 setInterval(backupData, 24 * 60 * 60 * 1000);
