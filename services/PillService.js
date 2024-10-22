@@ -31,7 +31,6 @@ class PillService {
 
                 //PillDto 만들고 DB에 저장
                 const savedPills = await this.buildPillDtoAndSave(pillInfoList, pillDocList);
-                console.log('saves Num : ', savedPills.length);
 
                 // 저장된 엔티티 객체가 하나도 없다면
                 if (savedPills.length === 0) {
@@ -192,7 +191,7 @@ class PillService {
                         nb_doc_data: pillDto.nb_doc_data,
                         big_prdt_img_url: pillDto.big_prdt_img_url,
                     });
-                    console.log("pill update\n");
+                    
                     savedPillList.push(existingPill);
                 } else {
                     // 존재하지 않는 경우 새로 생성
@@ -205,7 +204,7 @@ class PillService {
                         nb_doc_data: pillDto.nb_doc_data,
                         big_prdt_img_url: pillDto.big_prdt_img_url,
                     });
-                    console.log("new pill save\n");
+                    
                     savedPillList.push(newPill);
                 }
             }
