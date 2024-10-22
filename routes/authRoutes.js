@@ -6,7 +6,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /auth/register:
+ * /api/auth/register:
  *   post:
  *     summary: 회원가입
  *     description: 사용자를 등록합니다.
@@ -40,7 +40,7 @@ router.post("/register", authController.register);
 
 /**
  * @swagger
- * /auth/login:
+ * /api/auth/login:
  *   post:
  *     summary: 사용자 로그인
  *     description: 사용자 ID와 비밀번호로 로그인합니다.
@@ -92,7 +92,7 @@ router.post("/login", authController.login);
 //로그인 정보 세션 라우트
 /**
  * @swagger
- * /auth/session:
+ * /api/auth/session:
  *   get:
  *     summary: 로그인 세션 정보 반환
  *     description: 현재 로그인된 사용자의 세션 정보를 반환합니다.

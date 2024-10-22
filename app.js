@@ -71,9 +71,9 @@ const specs = swaggerJSDoc(swaggerOption);
 app.use("/swagger-ui", swaggerUi.serve, swaggerUi.setup(specs));
 
 // 라우트 설정
-app.use("/auth", authRoutes);
-app.use("/schedule", scheRoutes);
-app.use("/pills", pillRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/schedule", scheRoutes);
+app.use("/api/pills", pillRoutes);
 
 // 스케줄러 시작
 startCronJob();
