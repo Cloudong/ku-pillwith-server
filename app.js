@@ -19,7 +19,7 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerOption = require("./swagger");
 
 // scheduler
-const { startCronJob } = require("./scheduler");
+const { startCronJob, manualFetch } = require("./scheduler");
 
 const app = express();
 
