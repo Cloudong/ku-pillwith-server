@@ -15,13 +15,11 @@ async function backupData() {
   try {
     const query = util.promisify(db.query).bind(db);
     const users = await query("SELECT * FROM user");
-    const medicines = await query("SELECT * FROM pills");
     const schedules = await query("SELECT * FROM schedule");
     const session = await query("SELECT * FROM Sessions");
 
     const backupData = {
       users,
-      medicines,
       schedules,
       session,
     };
