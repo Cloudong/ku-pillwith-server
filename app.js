@@ -56,7 +56,7 @@ const cors = require("cors");
 // CORS 설정
 app.use(
   cors({
-    origin: "http://localhost:3000", // 클라이언트의 URL
+    origin: ["http://localhost:3000", "http://3.39.227.185:3001"], // 클라이언트의 URL
     credentials: true,
   })
 );
