@@ -5,7 +5,7 @@ const router = express.Router();
 // 일정 목록 조회 라우팅
 /**
  * @swagger
- * /schedule/schedules:
+ * /api/schedule/schedules:
  *   get:
  *     summary: 사용자의 복용 일정 목록 조회
  *     description: 로그인된 사용자의 복용 일정을 조회합니다.
@@ -55,7 +55,7 @@ router.get("/schedules", scheController.getUserSchedules);
 // 일정 생성 라우팅
 /**
  * @swagger
- * /schedule/register:
+ * /api/schedule/register:
  *   post:
  *     summary: 복용 일정 등록
  *     description: 사용자의 복용 일정을 등록합니다.
@@ -112,7 +112,7 @@ router.post("/register", scheController.createSchedule);
 // 일정 삭제 라우팅
 /**
  * @swagger
- * /schedule/{id}:
+ * /api/schedule/{id}:
  *   delete:
  *     summary: 복용 일정 삭제
  *     description: 지정된 ID에 해당하는 복용 일정을 삭제합니다.
