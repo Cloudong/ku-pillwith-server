@@ -5,10 +5,10 @@ require("dotenv").config();
 
 const s3 = new AWS.S3();
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "1234",
-  database: "testdb",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
 async function backupData() {

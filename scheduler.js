@@ -15,6 +15,18 @@ const startCronJob = () => {
   });
 };
 
+const backupData = () => {
+  cron.schedule("0 0 * * *", async () => {
+    console.log("Running the backup process...");
+    try {
+      await backupData();
+      console.log("Scheduled backup completed successfully.");
+    } catch (error) {
+      console.error("Error during scheduled backup:", error);
+    }
+  });
+};
+
 // 함수 추가: 수동으로 fetch 작업을 수행하는 함수
 const manualFetch = async () => {
   console.log("Running the manual fetch process...");

@@ -81,7 +81,6 @@ startCronJob();
 manualFetch();
 
 //s3 백업
-setInterval(backupData, 24 * 60 * 60 * 1000);
 backupData();
 
 // 서버 실행
