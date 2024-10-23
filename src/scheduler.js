@@ -1,6 +1,6 @@
 const cron = require("node-cron");
 const axios = require("axios");
-const { backupData: backupDatabase } = require("./src/aws"); // 백업 함수 가져오기
+const { backupData: backupDatabase } = require("./aws"); // 백업 함수 가져오기
 
 // 스케쥴러 설정
 // 매일 오전 00시에 API 호출
