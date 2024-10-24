@@ -8,7 +8,7 @@ const startCronJob = () => {
   cron.schedule("0 0 * * *", async () => {
     console.log("Running the fetch process...");
     try {
-      const response = await axios.get("http://localhost:3001/api/pills/fetch"); // API 호출
+      const response = await axios.get("http://3.39.227.185:3001/api/pills/fetch"); // API 호출
       console.log("Fetch response:", response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -33,7 +33,7 @@ const backupDataAWS = () => {
 const manualFetch = async () => {
   console.log("Running the manual fetch process...");
   try {
-    const response = await axios.get("http://localhost:3001/api/pills/fetch"); // API 호출
+    const response = await axios.get("http://3.39.227.185:3001/api/pills/fetch"); // API 호출
     console.log("Manual fetch response:", response.data);
   } catch (error) {
     console.error("Error during manual fetch:", error);
