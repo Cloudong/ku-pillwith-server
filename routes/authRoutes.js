@@ -116,8 +116,98 @@ router.post("/login", authController.login);
  */
 router.get("/session", authController.session);
 
+/**
+ * @swagger
+ * /api/auth/update-name:
+ *   post:
+ *     summary: 유저 이름 업데이트
+ *     description: 로그인한 유저의 이름을 업데이트 합니다.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               new_name:
+ *                 type: string
+ *                 description: The new name for the user.
+ *                 example: "NewUserName"
+ *     responses:
+ *       200:
+ *         description: Name updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Name updated successfully"
+ *                 new_name:
+ *                   type: string
+ *                   example: "NewUserName"
+ *       401:
+ *         description: Not logged in
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Not logged in"
+ *       500:
+ *         description: Error updating nickname
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Error updating nickname"
+ */
 router.post("/update-name", authController.updateName);
 
+/**
+ * @swagger
+ * /api/auth/logout:
+ *   delete:
+ *     summary: 유저 로그아웃
+ *     description: 세션을 종료시키며 현재 로그인한 유저를 로그아웃합니다.
+ *     responses:
+ *       200:
+ *         description: Logout successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Logout successful"
+ *       401:
+ *         description: Not logged in
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Not logged in"
+ *       500:
+ *         description: Error logging out
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Error logging out"
+ */
 router.delete("/logout", authController.logout);
 
 module.exports = router;

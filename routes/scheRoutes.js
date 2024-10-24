@@ -34,6 +34,9 @@ const router = express.Router();
  *                       pill_id:
  *                         type: integer
  *                         example: 1
+ *                       pill_item_name:
+ *                         type: TEXT
+ *                         example: "중외5%포도당생리식염액(수출명:5%DextroseinnormalsalineInj.)"
  *                       pill_imgurl:
  *                         type: string
  *                         example: "http://example.com/pill-image.jpg"
@@ -69,6 +72,7 @@ router.get("/schedules", scheController.getUserSchedules);
  *               - user_id
  *               - type
  *               - pill_id
+ *               - pill_item_name
  *               - pill_imgurl
  *               - pill_dosage
  *               - pill_type
@@ -82,6 +86,9 @@ router.get("/schedules", scheController.getUserSchedules);
  *               pill_id:
  *                  type: integer
  *                  example: 1
+ *               pill_item_name:
+ *                  type: string
+ *                  example: "중외5%포도당생리식염액(수출명:5%DextroseinnormalsalineInj.)"
  *               pill_imgurl:
  *                 type: string
  *                 example: "http://example.com/pill-image.jpg"
